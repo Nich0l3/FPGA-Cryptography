@@ -19,3 +19,5 @@ set_property PACKAGE_PIN E19 [get_ports {RxData[1]}]
 set_property PACKAGE_PIN U16 [get_ports {RxData[0]}]
 set_property PACKAGE_PIN W5 [get_ports clock_fpga]
 set_property PACKAGE_PIN B18 [get_ports RxD]
+
+create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clock_fpga]

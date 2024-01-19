@@ -26,6 +26,7 @@ parameter div_bit = 10;
 
 
 assign RxData = rxshift_reg [8:1]; 
+// UART
 
 // UART
 always@(posedge clock_fpga)
