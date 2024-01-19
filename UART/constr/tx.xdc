@@ -1,4 +1,4 @@
-set_property PACKAGE_PIN A18 [get_ports TxD]
+  set_property PACKAGE_PIN A18 [get_ports TxD]
 set_property PACKAGE_PIN T18 [get_ports reset]
 set_property PACKAGE_PIN U18 [get_ports transmit]
 
