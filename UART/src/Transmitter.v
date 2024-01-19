@@ -1,31 +1,9 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 01/16/2024 12:28:08 PM
-// Design Name: 
-// Module Name: Transmitter
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module Transmitter(
+    output reg TxD,
     input clock,
     input [7:0] data,
     input transmit,
-    input reset,
-    output reg TxD
+    input reset
     );
     
     // internal varibales 
