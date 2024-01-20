@@ -1,7 +1,5 @@
 # FPGA-Cryptography
 
-## Title: Unleashing the Power of Security: Cryptography Implementation on FPGA
-
 ### Introduction:
 
 In the rapidly evolving landscape of digital communication and information exchange, ensuring the security and privacy of sensitive data has become paramount. Cryptography, the science of secure communication, plays a crucial role in safeguarding information from unauthorized access or tampering. As technology advances, the need for efficient and high-performance cryptographic systems has led to the exploration of innovative platforms for implementation, and one such platform gaining prominence is the Field-Programmable Gate Array (FPGA).
