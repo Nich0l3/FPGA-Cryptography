@@ -1,16 +1,22 @@
 module multibytetx(
+
     output reg TxD,
     
-    input clock,
-    input [15:0] data,
     input transmit,
-    input reset 
+    input clock,
+    input reset,
+    input [15:0] data
+ 
     );
     
     // internal varibales 
-    reg [3:0] bit_counter; // start + data + stop = 10 bits, 16 bits to store them 
-    reg [13:0] baudrate_counter; // 2^14 =16K, clks/bit = 100MHz/9600Hz = 10K (internal/required)
-    reg [9:0] shiftright_register; // storing 10 bit data 
+    reg [4:0] bit_counter; // start + data + stop = 10 bits * 2 = 20, 20 bits to store them 
+    
+    reg [13:0] baudrate_counter; // 2^14 =16K, clks/bit = 100MHz/9600 = 10K (internal/required)
+    
+    reg [9:0] shiftright_register_1; // storing 1st byte 
+    reg [9:0] shiftright_register_2; // storing 2nd byte 
+    
     reg state, next_state; // swtich between idle mode and transmission mode 
     
     reg shift; // shift signal to start shifting
@@ -42,16 +48,22 @@ module multibytetx(
             
             if (load) // load is asserted
             begin
-                shiftright_register <= {1'b1, tempdata[7:0] ,1'b0}; // 10 bits are loaded 
-                tempdata <= tempdata >> 8;
+                shiftright_register_1 <= {1'b1, tempdata[7:0] ,1'b0}; // 10 bits are loaded
+                shiftright_register_2 <= {1'b1, tempdata[15:8] ,1'b0}; // 10 bits are loaded
+                 
+                // tempdata <= tempdata >> 8;
             end
                 
             if (clear) // clear is asserted
                 bit_counter<=0; // basically do nothing :)
             
             if (shift) // shift signal is asserted 
-            begin    
-                shiftright_register <= shiftright_register >> 1; // pushing the data out of register, LSB first !!!
+            begin   
+                if (bit_counter < 10)
+                    shiftright_register_1<= shiftright_register_1 >> 1; // pushing the data out of register, 1st byte!!!
+                else
+                    shiftright_register_2 <= shiftright_register_2  >> 1; // pushing the data out of register, 2nd byte!!!
+                    
                 bit_counter <= bit_counter + 1;
             end
         end
@@ -92,7 +104,7 @@ module multibytetx(
     
     1:  begin // TX
         
-        if (bit_counter == 10) // All data has been transmitted 
+        if (bit_counter == 20) // All data has been transmitted 
         begin
             next_state = 0; // TX -> IDLE mode
             clear <= 1; // clear bit counter
@@ -101,7 +113,11 @@ module multibytetx(
         else // Data is left in register 
         begin
             next_state <= 1; // Tx -> TX mode
-            TxD <= shiftright_register [0]; // TxD line sends the data
+            
+            if (bit_counter < 10)
+                TxD <= shiftright_register_1 [0]; // TxD line sends the data
+            else   
+                TxD <= shiftright_register_2 [0];
             shift <= 1; // continuing shifting the data so that new bit arrives at the LSB 
         end     
    
