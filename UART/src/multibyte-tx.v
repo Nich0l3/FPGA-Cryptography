@@ -1,31 +1,10 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 01/17/2024 09:42:05 AM
-// Design Name: 
-// Module Name: multibyte-tx
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module multibytetx(
+    output reg TxD,
+    
     input clock,
     input [15:0] data,
     input transmit,
-    input reset,
-    output reg TxD
+    input reset 
     );
     
     // internal varibales 

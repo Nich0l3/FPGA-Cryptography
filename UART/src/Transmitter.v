@@ -1,5 +1,6 @@
 module Transmitter(
     output reg TxD,
+    
     input clock,
     input [7:0] data,
     input transmit,
@@ -100,15 +101,11 @@ module Transmitter(
    
         end
       
-    default : next_state <= 9; // IDLE -> IDLE
+    default : next_state <= 0; // IDLE -> IDLE
     
     endcase
     
-    
-    
     end
-     
-
 
     
 endmodule

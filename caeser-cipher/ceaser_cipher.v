@@ -1,5 +1,5 @@
-module ceasar_cipher(input1,input2,answer);
-parameter N=8;
+module ceasar_cipher(answer,input1,input2);
+parameter N=16;
 input [N-1:0] input1,input2;
    output [N-1:0] answer;
    wire  carry_out;
