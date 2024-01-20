@@ -1,9 +1,9 @@
-module Reciever(
-
+module Receiver(
+output [7:0] RxData,
+   
 input clock_fpga,
 input reset,
-input RxD,
-output [7:0]RxData
+input RxD
     );
 
 // Internal variables

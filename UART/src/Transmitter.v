@@ -67,21 +67,18 @@ module Transmitter(
     case(state) 
     0:  begin //IDLE
         
-        if (transmit) // transmit is asserted
-        begin
-            next_state <= 1; // IDLE -> Tx mode
-            load <= 1;
-            shift <= 0;
-            clear <= 0;
-        end
-        
-        else
-        begin
-            next_state <= 0; // IDLE -> IDLE mode
-            TxD <= 1; // no TX, remains high for no TX 
-        end
-        
-        
+            if (transmit) // transmit is asserted
+            begin
+                next_state <= 1; // IDLE -> Tx mode
+                load <= 1;
+                shift <= 0;
+                clear <= 0;
+            end 
+            else
+            begin
+                next_state <= 0; // IDLE -> IDLE mode
+                TxD <= 1; // no TX, remains high for no TX 
+            end     
         end
     
     1:  begin // TX
@@ -90,6 +87,7 @@ module Transmitter(
         begin
             next_state = 0; // TX -> IDLE mode
             clear <= 1; // clear bit counter
+            
         end
         
         else // Data is left in register 
